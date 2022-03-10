@@ -26,7 +26,11 @@ button:focus {
 }
 
 img {
-    width: 100px;
+    /* width: 100px; */
+    max-width:50px;
+    max-height:40px;
+    width: auto;
+    height: auto;
 }
 
 div>p:first-child {
@@ -34,7 +38,7 @@ div>p:first-child {
 }
 
 div img {
-    background: black;
+    background: white;
 }
 
 .botao-amarelo {
@@ -99,8 +103,9 @@ div:last-child {
 }
 
 table {
-    width: 60%;
+    width: 60% ;
     margin: auto;
+    text-align: center;
 }
 
 td button {
