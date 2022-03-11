@@ -49,6 +49,24 @@ div img {
     background: white;
 }
 
+.botao-amarelo-home {
+    background-color: #ffaf43;
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: black;
+    margin-top: 150px;
+}
+
+.botao-amarelo-home:hover {
+    background-color: #c44f00;
+}
+
+.botao-amarelo-home:active {
+    color: white;
+   
+}
 
 .botao-amarelo {
     background-color: #ffaf43;
@@ -56,19 +74,19 @@ div img {
     height: 40px;
     border-radius: 5px;
     font-size: 20px;
-    color: white;
+    color: black;
 }
 
 .botao-amarelo:hover {
     background-color: #c44f00;
 }
 
-.botao-amarelo > a:active {
+.botao-amarelo:active {
     color: white;
    
 }
 .container {
-    height: 500px;
+    height: 300px;
     text-align: center;
     padding-top: 100px;
 }
@@ -144,6 +162,10 @@ td button {
     border-radius: 5px;
     font-size: 10px;
     color: black;
+    display: block;
+    margin: auto;
+    margin-top: 200px;
+    
 }
 
 #back-button:hover {
