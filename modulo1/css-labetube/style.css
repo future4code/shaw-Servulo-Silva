@@ -10,17 +10,18 @@
 
 .container{
     height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
-   
 }
 
 header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 40px;
-    height: 8vh;
+    flex-wrap: wrap;
+    padding: 15px 40px;
+    min-height: (8vh);
     font-size: 25px;
     background-color: crimson;
 }
@@ -71,6 +72,36 @@ main{
     text-align: center;
     color: white;
     padding: 4px;
+}
+
+
+/* aqui é o style do video de cada página */
+.container-video{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+.video{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
+}
+.video .video-n{
+    width: 50%;
+    padding-top: 20px;
+}
+@media screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .video .video-n{
+        width: 98%;
+    }
+}
+    
+.video h1{
+    text-align: center;
 }
 
 
