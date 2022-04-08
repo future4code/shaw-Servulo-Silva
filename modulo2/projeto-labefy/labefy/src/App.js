@@ -1,12 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import CriarPlaylists from "./components/CriarPlaylist";
+import VerPlaylists from "./components/VerPlaylists";
 
-function App() {
-  return (
+export default class App extends React.Component {
+
+
+  render() {
+
+
+     return (
     <div>
-     Labefy - O melhor lugar pra você ouvir suas músicas
+      <CriarPlaylists/>
+      <VerPlaylists/>
     </div>
-  );
+  )
+  }
+ 
 }
 
-export default App;
+
