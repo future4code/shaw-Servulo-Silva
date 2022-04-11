@@ -10,7 +10,7 @@ const MainContainer = styled.div`
 display: flex;
 flex-direction: column;
 margin: 0;
-height: 97vh;
+height: 96vh;
 box-sizing: border-box;
 padding: 0;
 border: 1px solid black;
