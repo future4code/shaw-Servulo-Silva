@@ -2,14 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../constants/urls";
 import styled from "styled-components";
-
+import {CardPost} from "../../components/CardPost/CardPost"
 
 
 
 const MainContainerFeed = styled.div`
-    border: 1px solid black;
-    width: 300px;
-    margin: 12px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+const Cards = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
 `
 
 const FeedPage = () => {
@@ -39,13 +48,17 @@ const FeedPage = () => {
         <CardPost
         username = {post.username}
         body = {post.body}
+        voteSum = {post.voteSum}
+        commentCount = {post.commentCount}
         
         />
         )
     })
     return (
         <MainContainerFeed>
+            <Cards>
             {mapeandoPosts}
+            </Cards>
         </MainContainerFeed>
     )
 }
