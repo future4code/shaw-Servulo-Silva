@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios";
 import {BASE_URL} from "../../constants/urls"
 import {goToFeedPage} from "../../routes/coordinator"
+import {login} from "../../services/users"
+
 
 const LoginForm = () => {
     const [form, onChange, clear] = useForm({ email: "", password: "" })
@@ -13,26 +15,14 @@ const LoginForm = () => {
 
     const onSubmitForm = (event) => {
         event.preventDefault()
-        login()
+        login(form, clear, navigate)
         clear();
         
        
     }
 
 
-    const login = () => {
-     
-        axios.post(`${BASE_URL}/users/login`, form)
-        .then((res)=>{
-            console.log(res)
-            localStorage.setItem("token", res.data.token)
-            goToFeedPage(navigate)
-        })
-           
-        .catch((err)=>{
-            console.log(err);
-        })
-    }
+    
 
     return (
         <LoginFormContainer>

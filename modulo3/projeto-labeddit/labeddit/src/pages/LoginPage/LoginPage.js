@@ -7,10 +7,12 @@ import {
 } from "./styled";
 import useForm from "../../hooks/useForm";
 import LoginForm from "./LoginForm";
+import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 
 
 
 const LoginPage = () => {
+  useUnprotectedPage()
   const [form, onChange, clear] = useForm({ email: "", password: "" });
   const navigate = useNavigate();
   const onSubmitForm = (event) => {
