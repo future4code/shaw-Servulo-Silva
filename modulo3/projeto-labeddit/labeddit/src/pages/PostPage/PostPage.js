@@ -6,16 +6,32 @@ import useForm from "../../hooks/useForm";
 import { useNavigate } from "react-router-dom"
 import { BASE_URL } from "../../constants/urls";
 import { CardPost } from "../../components/CardPost/CardPost";
+import styled from "styled-components"
+import { CardComment } from "../../components/CardComment/CardComment";
+
+
+const RenderPost = styled.div`
+`
+
+const RenderComments = styled.div`
+`
+
+
+
+// ------------------------------------------------------------------
 
 
 const PostPage = () => {
     useProtectedPage()
     const postId = useParams()
     const [post, setPost] = useState({})
-    const [comment, setComment] = useState({})
+    const [comments, setComments] = useState([])
     const [postArray, setPostArray] = useState([])
 
-    
+    useEffect(()=>{
+        getPosts()
+        getPostComments()
+    },[])
 
 
     const getPosts = () => {
@@ -32,14 +48,11 @@ const PostPage = () => {
 
         })
         .catch((err)=>{
-            alert(err)
+            // alert(err)
         })
     }
 
-    useEffect(()=>{
-        getPosts()
-        getPostComments()
-    },[])
+    
 
     const filtrandoPost = (posts) => {
         return posts.find((post)=>{
@@ -56,32 +69,53 @@ const PostPage = () => {
                 Authorization: localStorage.getItem('token')
               }
         }
-        axios.get(`${BASE_URL}/posts/${post.id}`, headers)
+        axios.get(`${BASE_URL}/posts/${postId.id}/comments`, headers)
         .then((res)=>{
-            setComment(res.data)
+            setComments(res.data)
+            console.log(res)
 
         })
         .catch((err)=>{
             alert(err)
         })
     }
+
+    const mapeandoComments = comments.map((comment) => {
+        return (
+            <CardComment
+                key = {comment.id}
+                id = {comment.id}
+                username = {comment.username}
+                title = {comment.title}
+                body = {comment.body}
+                voteSum = {comment.voteSum}
+                commentCount = {comment.commentCount}
+            />
+        )
+            
+    })
     
 
 
 
     return (
         <div>
-            {post?
-            <CardPost
-             key = {post.id}
-             id = {post.id}
-             username = {post.username}
-             title = {post.title}
-             body = {post.body}
-             voteSum = {post.voteSum}
-             commentCount = {post.commentCount}
-            />
-            :<p>Loading...</p> }
+            <RenderPost>
+                {post?
+                <CardPost
+                key = {post.id}
+                id = {post.id}
+                username = {post.username}
+                title = {post.title}
+                body = {post.body}
+                voteSum = {post.voteSum}
+                commentCount = {post.commentCount}
+                />
+                :<p>Loading...</p> }
+            </RenderPost>
+            <RenderComments>
+                {mapeandoComments}
+            </RenderComments>
         </div>
     )
             }
