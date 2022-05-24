@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom"
 
 const MainContainerFeed = styled.div`
     width: 100%;
+    max-width: 350px;
+    /* background-color: red; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,6 +29,8 @@ const Cards = styled.div`
 const CreatingPost = styled.div`
 `
 
+
+let iconStyles = { color: "#7869bf", fontSize: "2em", cursor: "pointer" };
 
 
 // ----------------------------------------------------------------------------
@@ -89,6 +93,24 @@ const FeedPage = () => {
     }
 
 
+    const onClickLike =(id, userVote)=>{
+
+        if(userVote === 1){
+            deletePostVote(id)
+        }else{
+            postCreatePostVote(id)
+        }
+     }
+     const onClickDislike =(id, userVote)=>{
+
+        if(userVote === -1){
+            deletePostVote(id)
+        }else{
+            putChangePostVote(id)
+        }
+     }
+     
+
     const mapeandoPosts = post.map((post)=>{
         return (
         <CardPost
@@ -98,11 +120,85 @@ const FeedPage = () => {
         title = {post.title}
         body = {post.body}
         voteSum = {post.voteSum}
+        userVote = {post.userVote}
         commentCount = {post.commentCount}
+        onClickLike = {onClickLike}
+        onClickDislike = {onClickDislike}
+        
         
         />
         )
     })
+
+
+
+    // Lógica do like 
+
+    
+     const postCreatePostVote =(id)=>{
+        const body = {
+                direction: 1,
+        }
+        axios
+        .post(`${BASE_URL}/posts/${id}/votes`, body,{
+            headers:{
+                Authorization: localStorage.getItem("token")
+            }
+        })
+        .then((res)=>{
+            
+            alert(res.data)
+            getPosts()
+           
+        })
+        .catch((err)=>{
+            console.log(err)
+            alert(err.response.data.message)
+        })
+    
+    };
+    
+    const putChangePostVote =(id, getPosts)=>{
+        const body = {
+                direction: -1,
+        }
+        axios
+        .put(`${BASE_URL}/posts/${id}/votes`, body,{
+            headers:{
+                Authorization: localStorage.getItem("token")
+            }
+        })
+        .then((res)=>{
+            alert("Deslike Registrado")
+            getPosts()
+        })
+        .catch((err)=>{
+            
+            alert(err.response.data.message)
+        })
+    
+    };
+
+    const deletePostVote =(id)=>{
+        
+        axios
+        .delete(`${BASE_URL}/posts/${id}/votes`,{
+            headers:{
+                Authorization: localStorage.getItem("token")
+            }
+        })
+        .then((res)=>{
+            
+            getPosts()
+           
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    
+    };
+
+
     return (
         <MainContainerFeed>
             <CreatingPost>

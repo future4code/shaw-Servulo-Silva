@@ -3,8 +3,8 @@ import styled from "styled-components"
 export const MainContainerCard = styled.div`
     display: flex;
     flex-direction: column;
-    width: 90%;
-    max-width: 320px;
+    width: 80%;
+    max-width: 350px;
     min-width: 300px;
     border: 1px solid lightgrey;
     border-radius: 10px;
@@ -13,6 +13,7 @@ export const MainContainerCard = styled.div`
     background: lightgrey;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     cursor: pointer;
+    font-family: sans-serif;
 
 `
 

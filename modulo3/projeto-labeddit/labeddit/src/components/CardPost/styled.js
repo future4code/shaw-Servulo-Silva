@@ -5,13 +5,14 @@ export const MainContainerCard = styled.div`
     flex-direction: column;
     width: 90%;
     max-width: 320px;
+    min-width: 300px;
     border: 1px solid lightgrey;
     border-radius: 10px;
     margin: 8px 0;
     padding: 8px;
-    background: lightgrey;
+    background: #fbfbfb;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    cursor: pointer;
+    font-family: sans-serif;
 
 `
 
@@ -26,7 +27,11 @@ export const Card = styled.div`
 
 export const User = styled.div`
     font-size: 0.8rem;
-    /* padding: 4px; */
+`
+
+export const Title = styled.div`
+    font-size: 1rem;
+    
 `
 
 export const Body = styled.div`

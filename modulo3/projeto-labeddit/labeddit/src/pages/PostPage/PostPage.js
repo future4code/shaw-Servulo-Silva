@@ -16,10 +16,21 @@ const RenderPost = styled.div`
 const RenderComments = styled.div`
 `
 
+const MainContainerPost = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+const WritingComment = styled.div`
+`
+
 
 
 // ------------------------------------------------------------------
 
+// Início da Page
 
 const PostPage = () => {
     useProtectedPage()
@@ -27,12 +38,21 @@ const PostPage = () => {
     const [post, setPost] = useState({})
     const [comments, setComments] = useState([])
     const [postArray, setPostArray] = useState([])
+    const [createNewComment, setCreateNewComment] = useState([])
+    const [form, onChange, clear] = useForm({ body: "" });
+
+    const onSubmitForm = (event) => {
+        event.preventDefault();
+        createComment()
+      };
 
     useEffect(()=>{
         getPosts()
         getPostComments()
     },[])
 
+
+// Função para buscar os posts 
 
     const getPosts = () => {
         const headers = {
@@ -48,11 +68,13 @@ const PostPage = () => {
 
         })
         .catch((err)=>{
-            // alert(err)
+            alert(err)
         })
     }
 
     
+
+// Pegando apenas o post específico 
 
     const filtrandoPost = (posts) => {
         return posts.find((post)=>{
@@ -62,6 +84,8 @@ const PostPage = () => {
         })
     }
 
+
+// Função para pegar os comentarios 
 
     const getPostComments = () => {
         const headers = {
@@ -80,6 +104,92 @@ const PostPage = () => {
         })
     }
 
+
+    
+
+    // Função para criar comentário 
+
+    const createComment = () => {
+        const headers = {
+            headers: {
+                Authorization: localStorage.getItem('token')
+              }
+        }
+        
+        axios.post(`${BASE_URL}/posts/${postId.id}/comments`, form, headers)
+        .then((res)=>{
+            setCreateNewComment(res)
+            clear()
+            getPostComments()
+        })
+        .catch((res)=>{
+            alert(res)
+        })
+    }
+    
+    const onClickLike =(id)=>{
+        postCreateCommentVote(id)
+        
+     }
+     const onClickDislike =(id)=>{
+        putChangeCommentVote(id)
+     }
+
+
+
+     // Lógica do like 
+
+    
+
+     const postCreateCommentVote =(id)=>{
+        const body = {
+                direction: 1,
+        }
+        axios
+        .post(`${BASE_URL}/comments/${id}/votes`, body,{
+            headers:{
+                Authorization: localStorage.getItem("token")
+            }
+        })
+        .then((res)=>{
+            
+            alert(res.data)
+            getPosts()
+            getPostComments()
+           
+        })
+        .catch((err)=>{
+            console.log(err)
+            alert(err.response.data.message)
+        })
+    
+    };
+    
+    const putChangeCommentVote =(id)=>{
+        const body = {
+                direction: -1,
+        }
+        axios
+        .put(`${BASE_URL}/comments/${id}/votes`, body,{
+            headers:{
+                Authorization: localStorage.getItem("token")
+            }
+        })
+        .then((res)=>{
+            alert("Deslike Registrado")
+            getPosts()
+            getPostComments()
+        })
+        .catch((err)=>{
+            
+            alert(err.response.data.message)
+        })
+    
+    };
+
+
+    // Fazendo o map na função para pegar cada comentário 
+
     const mapeandoComments = comments.map((comment) => {
         return (
             <CardComment
@@ -90,16 +200,29 @@ const PostPage = () => {
                 body = {comment.body}
                 voteSum = {comment.voteSum}
                 commentCount = {comment.commentCount}
+                onClickLike = {onClickLike}
+                onClickDislike = {onClickDislike}
             />
         )
             
     })
-    
-
 
 
     return (
-        <div>
+        <MainContainerPost>
+            <WritingComment>
+            <form onSubmit={onSubmitForm}>
+                    <input
+                     name="body" 
+                     value={form.body} 
+                     onChange={onChange} 
+                     placeholder="Message"
+                     required
+                     type={"text"}
+                    />
+                    <button>Enviar</button>
+                </form>
+            </WritingComment>
             <RenderPost>
                 {post?
                 <CardPost
@@ -116,7 +239,7 @@ const PostPage = () => {
             <RenderComments>
                 {mapeandoComments}
             </RenderComments>
-        </div>
+        </MainContainerPost>
     )
             }
 
