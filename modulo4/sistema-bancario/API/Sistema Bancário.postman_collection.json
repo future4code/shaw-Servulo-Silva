@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "6bfa7cce-de9c-429d-9f76-1fb8ababbdc1",
+		"name": "Sistema Bancário",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20354118"
+	},
+	"item": [
+		{
+			"name": "Pegar todos os usuários",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3003/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Este endpoint retorna todos os usuários."
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionar novo usuário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Layane\",\r\n        \"CPF\": 15975369844,\r\n        \"birthDate\": \"06/03/1995\",\r\n        \"balance\": 5000,\r\n        \"statement\":[]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3003/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Este endpoint cadastra um novo usuário."
+			},
+			"response": []
+		}
+	]
+}
