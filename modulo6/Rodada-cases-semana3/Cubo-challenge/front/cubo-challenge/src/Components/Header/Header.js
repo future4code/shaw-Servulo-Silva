@@ -3,21 +3,22 @@ import { useState } from 'react';
 import useForm from '../../Hooks/useForm';
 import axios from 'axios';
 import { BASE_URL } from '../../Constants/base_url';
-const Header = () => {
+const Header = ({getParticipations, allParticipations}) => {
 
     const [form, onChange, clear] = useForm({ first_name: "", last_name: "", participation: "" });
-    const [createNewParticipation, setCreateNewParticipation] = useState([]);
 
     const onSubmitForm = (event) => {
         event.preventDefault();
         createParticipation();
+        // getParticipations();
+        window.location.reload()
+        console.log("teste sub")
       };
 
       const createParticipation = () => {
         axios
             .post(BASE_URL, form)
             .then((res) => {
-                setCreateNewParticipation(res);
                 clear();
             })
       }

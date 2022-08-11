@@ -1,54 +1,47 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ChartSide, MainContainer, TableSide } from './styled'
+import { ChartSide, MainContainer, TableSide, ChartContainer } from './styled'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import {BASE_URL} from '../../Constants/base_url'
 
-const Main = () => {
+ChartJS.register(
+    ArcElement, Tooltip, Legend
+)
+
+const Main = ({getParticipations, allParticipations}) => {
     
-    const [allParticipations, setAllParticipations] = useState([])
     
+    const [values, setValues] = useState([])
+    const [names, setNames] = useState([])
     
-    const getParticipations = async () => {
-        await axios
-        .get(BASE_URL)
-        .then((res) => {
-                setAllParticipations(res.data)
-            })
-            .catch((err) => {
-                console.log(err.response)
-            })
-        }
-        
+    //Doughnut
+        const data = {
+            datasets: [{
+                data: values,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(0, 224, 138)',
+                    'rgb(167, 32, 234)',
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(0, 224, 138)',
+                    'rgb(167, 32, 234)'
+                ],
+                borderWidth: 1,
+
+            }],
+            
 
         
-        // ChartJS.register(ArcElement, Tooltip, Legend);
-        // const dataBase = {
-            //     hidden: false,
-            //     datasets: [
-                //         {
-                    //             data: valores,
-                    //             backgroundColor: [
-                        //                 'rgb(255, 99, 132)',
-                        //                 'rgb(54, 162, 235)',
-                        //                 'rgb(255, 205, 86)',
-                        //                 'rgb(0, 224, 138)',
-    //                 'rgb(167, 32, 234)',
-    //             ],
-    //             borderColor: [
-        //                 'rgb(255, 99, 132)',
-        //                 'rgb(54, 162, 235)',
-        //                 'rgb(255, 205, 86)',
-        //                 'rgb(0, 224, 138)',
-        //                 'rgb(167, 32, 234)'
-        //             ],
-        //             borderWidth: 2,
-        //         },
-        //     ],
-        // };
-        
-        
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: names
+        };
         
         //Map para pegar o valor total
         const mapPart = allParticipations.map((eachvalue)=>{
@@ -64,7 +57,6 @@ const Main = () => {
             }
             return sum
         }
-        console.log(totalSum())
         // Map para pegar cada valor da tabela
         const mapParticipations = allParticipations.map((value)=>{
             return <tr key={value.id}>
@@ -75,13 +67,32 @@ const Main = () => {
         </tr>
     })
     
+
     // useEffect para renderizar na tela os ítens da requisição GET
         useEffect(() => {
             getParticipations()
         }, [])
+
+        useEffect(()=>{
+            const userParticipation = allParticipations.map((value ) => {
+                return ((value.participation*100)/totalSum()).toFixed(1)
+            })
+            setValues(userParticipation)
+        }, [allParticipations])
+
+        useEffect(()=>{
+            const userNames = allParticipations.map((value ) => {
+                return value.first_name
+            })
+            setNames(userNames)
+        }, [allParticipations])
+
+
+
     
     return (
         <MainContainer>
+            
             <TableSide>
                 <table>
                     <thead>
@@ -99,7 +110,9 @@ const Main = () => {
             </TableSide>
 
             <ChartSide>
-                Chart
+                <ChartContainer>
+                    <Doughnut data={data}/>
+                </ChartContainer>
             </ChartSide>
         </MainContainer>
     )

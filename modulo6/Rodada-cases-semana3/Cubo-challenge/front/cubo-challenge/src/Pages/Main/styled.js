@@ -55,7 +55,13 @@ export const TableSide = styled.div`
 
 export const ChartSide = styled.div`
     width: 50%;
-    background-color: yellow;
+    display: flex;
+    justify-content: center;
+`
+
+export const ChartContainer = styled.div`
+    width: 40%;
+    margin-top: 30px;
 `
 
 
