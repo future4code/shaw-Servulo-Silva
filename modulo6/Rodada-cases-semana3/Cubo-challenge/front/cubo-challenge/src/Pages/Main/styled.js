@@ -63,13 +63,31 @@ export const InputContainer = styled.div`
 
 export const MainContainer = styled.div`
     display: flex;
+    flex-direction: column;
     flex: 1;
     
+`
+
+export const MainContent = styled.div`
+    display: flex;
+    flex: 1;
+    
+`
+export const Intro = styled.div`
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+
+    p {
+        margin-top: -10px;
+    }
 `
 
 export const TableSide = styled.div`
     display: flex;
     width: 50%;
+    height: 100%;
     justify-content: center;
     margin-top: 30px;
 
@@ -78,34 +96,22 @@ export const TableSide = styled.div`
     table {
     border-collapse: collapse;
     width: 80%;
+    height: auto;
+    margin-left: 100px;
 
     }
 
     th,
     td {
-    border: 1px solid black;
+    border: 1px solid #d6d6d6;
     text-align: left;
+    color: #424242;
     padding: 8px;
-    /* font-size: 32px; */
-    }
+    font-size: 16px;
 
-    th {
-    /* background-color: rgb(117, 201, 250); */
-    }
-
-    td {
-    /* background-color: rgb(205, 235, 253); */
-
-    
-    }
-
-    form td:last-child {
-    display: flex;
-    justify-content: space-evenly;
-    }
-
-    form * {
-    font-size: 28px;
+    /* .participation {
+        width: 20px;
+    } */
     }
 
     .participation {
@@ -123,6 +129,7 @@ export const ChartSide = styled.div`
 export const ChartContainer = styled.div`
     width: 40%;
     margin-top: 30px;
+    margin-right: 50px;
 `
 
 
