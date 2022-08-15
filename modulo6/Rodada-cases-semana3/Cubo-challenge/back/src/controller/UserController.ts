@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
-import { BaseDatabase } from "../data/BaseDataBase";
+import { BaseDatabase } from "../data/BaseDatabase";
 import { user } from "../types/user";
 
 export class UserController {

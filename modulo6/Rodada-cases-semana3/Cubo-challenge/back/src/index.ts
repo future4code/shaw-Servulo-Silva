@@ -1,7 +1,7 @@
-import * as dotenv from "dotenv"
+import dotenv from "dotenv"
 import {AddressInfo} from "net";
-import * as express from "express"
-import * as cors from "cors";
+import express from "express"
+import cors from "cors";
 import { userRouter } from "./router/userRouter";
 
 dotenv.config();

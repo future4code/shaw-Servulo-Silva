@@ -1,4 +1,4 @@
-import { BaseDatabase } from "./BaseDataBase";
+import { BaseDatabase } from './BaseDatabase'
 
 const TABLE_NAME = "PARTICIPATION";
 
